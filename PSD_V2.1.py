@@ -29,7 +29,7 @@ if os.path.exists("/Users/admin-nisem543"):
     mac         = True
     lab_pc      = False
     kajal_pc    = False
-elif os.path.exists(""):
+elif os.path.exists("C:/Users/ktiwari"):
     print("running in Kajal's PC")
     mac         = False
     lab_pc      = False
@@ -83,11 +83,11 @@ lineterminator = "\n"
 #else  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data reapeat on 20th night"
 # Data taken from all 3 measuements are combined in Data_combined folder
 if mac: folder      = "/Users/admin-nisem543/Seafile/MAX PLANK/Data/PPMS/FGT3_S25_#047/D1/Combined"
-if kajal_pc : folder = "D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#047\D1\Combined"
+if kajal_pc : folder = "D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#047\D1\Data repeat on 20jan2023"
 if lab_pc  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data_combined"
 fileprefix  = "K_5mS"
 row_sample_rate = 104.6
-method          =  "MSA_n2_norm"#"MSA_n2_norm_lowpass"#"MSA_n2_norm___f_scaled___" #"psd_welch_mean"#___skip_start_600s
+method          =  "MSA_n2_norm_Kajal"#"MSA_n2_norm_lowpass"#"MSA_n2_norm___f_scaled___" #"psd_welch_mean"#___skip_start_600s
 
 #************************************************************* FGT3-S25_D5
 #if mac: folder      = "/Users/admin-nisem543/Documents/FGT3_S25_#47_9T_Noise/D5_2-Feb_2023_night"
