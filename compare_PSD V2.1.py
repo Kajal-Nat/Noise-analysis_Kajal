@@ -15,11 +15,20 @@ import matplotlib.pyplot as plt
 import os
 
 if os.path.exists("/Users/admin-nisem543"):
-    mac     = True
-    lab_pc  = False
+    print("running in Ajesh's Mac book pro")
+    mac         = True
+    lab_pc      = False
+    kajal_pc    = False
+elif os.path.exists(""):
+    print("running in Kajal's PC")
+    mac         = False
+    lab_pc      = False
+    kajal_pc    = True
 else  : 
-    mac     = False
-    lab_pc  = True
+    print("running in Ajesh's PC")
+    kajal_pc    = False
+    mac         = False
+    lab_pc      = True
 sub_folder  = "Analyse"
 # import PyOrigin
 # folder                  = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT26052022\Device4\Device4_on-24-12-2022\Data\Analyse"
@@ -67,10 +76,11 @@ sub_folder  = "Analyse"
 #fileprefix  = "K_5mS"
 #method          =  "MSA_n2_norm___f_scaled___round3"#"MSA_n2_norm_lowpass"#"MSA_n2_norm" #"psd_welch_mean"#___skip_start_600s
 #### Testing old analysed data 19th Feb 2023
-if mac: folder      = "/Users/admin-nisem543/Seafile/MAX PLANK/Data/PPMS14T/Ajesh_2022/FGT3_S25_#047/Combined_old/"
-else  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data_combined"
-fileprefix  = "K_10mS"
-method          =  "MSA_n2_norm"#"MSA_n2_norm_lowpass"#"MSA_n2_norm" #"psd_welch_mean"#___skip_start_600s
+if mac: folder      = "/Users/admin-nisem543/Seafile/MAX PLANK/Data/PPMS/FGT3_S25_#047/D1/Combined"
+if kajal_pc : folder = "D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#047\D1\Combined"
+if lab_pc  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data_combined"
+fileprefix  = "K_5mS"
+method          =  "MSA_n2_norm"#"MSA_n2_norm_lowpass"#"MSA_n2_norm___f_scaled___" #"psd_welch_mean"#___skip_start_600s
 
 
 #************************************************************* FGT3-S25_D5
