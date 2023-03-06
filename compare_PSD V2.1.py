@@ -77,10 +77,10 @@ sub_folder  = "Analyse"
 #method          =  "MSA_n2_norm___f_scaled___round3"#"MSA_n2_norm_lowpass"#"MSA_n2_norm" #"psd_welch_mean"#___skip_start_600s
 #### Testing old analysed data 19th Feb 2023
 if mac: folder      = "/Users/admin-nisem543/Seafile/MAX PLANK/Data/PPMS/FGT3_S25_#047/D1/Combined"
-if kajal_pc : folder = "D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#047\D1\Data repeat on 20jan2023"
+if kajal_pc : folder = r"D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#047\D1\Data"
 if lab_pc  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data_combined"
 fileprefix  = "K_5mS"
-method          =  "MSA_n2_norm_Kajal"#"MSA_n2_norm_lowpass"#"MSA_n2_norm___f_scaled___" #"psd_welch_mean"#___skip_start_600s
+method          =  "MSA_n2_norm_Kajal_2"#"MSA_n2_norm_lowpass"#"MSA_n2_norm___f_scaled___" #"psd_welch_mean"#___skip_start_600s
 sub_folder  = os.path.join("Analyse","_"+method)
 
 #************************************************************* FGT3-S25_D5

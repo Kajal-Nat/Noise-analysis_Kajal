@@ -39,69 +39,15 @@ else  :
     kajal_pc    = False
     mac         = False
     lab_pc      = True
-delimiter   = ","
-lineterminator = "\n"
-# folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT26052022\Device4\Device4_on-24-12-2022\Data"
-# filename    ='10K_10mS_3rd-Order'
-# fileprefix  = "K_10mS_3rd-Order" 
-# delimiter   = ","
-# lineterminator = "\n"
-# temperature_range = np.hstack((np.arange(10,360,10)))
-# sample_rate = 104.6
-
-# folder      = r"C:\Data_analysis\old\New folder"
-# fileprefix  = "K"
-# delimiter   = "\t"
-# lineterminator = "\t\n"
-# sample_rate = 1674
-# temperature_range = np.hstack(([10],np.arange(25,325,25)))
-
-# folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS9T\Ajesh\2022\GoldWire_Data_29-12-2022"
-# filename    ='10K_10mS_3rdOrder'
-# fileprefix  = "K_10mS_3rdOrder"
-# delimiter   = ","
-# lineterminator = "\n"
-# temperature_range = [10,40,60,80,100,140,180,220,260,280,300,340]
-# sample_rate = 104.6
-
-# #FINAL MEASUREMENT ON DEVICE4 FGT3_26052021
-#if mac: folder      = "/Users/admin-nisem543/seafile/MAX PLANK/Data/Data/PPMS14T/Ajesh_2022/FGT26052022/Device4_on_16-01-2023_5Prob/Data"
-#else folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT26052022\Device4_on_16-01-2023_5Prob\Data"
-#filename    ='250K_10mS_K'
-#fileprefix  = "K_10mS_K"
-# # filename    ='205K_10mS'
-# # fileprefix  = "K_10mS"
-#sample_rate = 104.6
-
-############################################################ FGT3-S25
-# # First measurement on FGT3-S25. done on 20th jan morning
-# folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data"
-# #second measurement on FGT3-S25. done on 20th jan morning
-# folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data repeat on 20jan2023"
-# #Third measurement on FGT3-S25. Done on 20th jan night
-#if mac: folder      = "FGT3_S25_#047/Data repeat on 20th night"
-#else  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data reapeat on 20th night"
-# Data taken from all 3 measuements are combined in Data_combined folder
-if mac: folder      = "/Users/admin-nisem543/Seafile/MAX PLANK/Data/PPMS/FGT3_S25_#047/D1/Combined"
-if kajal_pc : folder = "D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#047\D1\Data repeat on 20jan2023"
-if lab_pc  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data_combined"
-fileprefix  = "K_5mS"
-row_sample_rate = 104.6
-method          =  "MSA_n2_norm_Kajal"#"MSA_n2_norm_lowpass"#"MSA_n2_norm___f_scaled___" #"psd_welch_mean"#___skip_start_600s
-
-#************************************************************* FGT3-S25_D5
-#if mac: folder      = "/Users/admin-nisem543/Documents/FGT3_S25_#47_9T_Noise/D5_2-Feb_2023_night"
-#else  : folder      = r""
-#fileprefix  = "K_2,6mS"
-#row_sample_rate = 837.1
-#method          =  "MSA_n2_norm___lowpass___f_scaled___round3"#"MSA_n2_norm_lowpass"#"MSA_n2_norm" #"psd_welch_mean"#___skip_start_600s
-
-
-
-#### Basic variables
-# temperature_range = [200]
-tosecond        = 1/104.6/573440
 temperature_range = "AutoRange"
+tosecond        = 1/104.6/573440 #It is constant no matter what, never change it
+
+#this needs to be changed depending on what files to analyse
+if mac: folder      = "/Users/admin-nisem543/Seafile/MAX PLANK/Data/PPMS/FGT3_S25_#047/D1/Combined"
+if kajal_pc : folder = r"D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#047\D1\Data"
+if lab_pc  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data_combined"
+fileprefix  = "K_5mS" #Also, change this depending on files to read
+method          =  "MSA_n2_norm_Kajal_2"#"MSA_n2_norm_lowpass"#"MSA_n2_norm___f_scaled___" #"psd_welch_mean"#___skip_start_600s
 #skip_few_minuts
 skip_tail       = False
 skip_start      = False
@@ -110,13 +56,13 @@ rollingavg      = True
 if "skip_tail" in method : skip_tail        = True
 if "skip_start" in method :skip_start       = True
 if "trim_time" in method :trim_time         = True
-skip_tail_raw   = int( 1000*row_sample_rate)    # Remove few data points from the end
-skip_start_raw  = int( 600*row_sample_rate)     # Remove few data points from the beginning
-trim_length     = int( 1000*row_sample_rate)     # Trimms the date. Keeps from endng till the trim_length towards the start eg:800seconds
-filelist        = []
-#Check 70K,110K data and edit it 
-# temperature_range   = [300]
 
+    
+filelist                = []
+delimiter   = ","
+lineterminator = "\n"
+
+#fucntions for calculations of fft, PSD and other data editing tools
 
 def fourier_transform_doubleside(signal,sample_rate,method):
     print("FFT on full time domain calculating....")
@@ -246,7 +192,7 @@ def lowpass(signal,fs,method):
 
 
 #### Data analysis function
-def analyse_signal(    filename, folder, method, tosecond, lineterminator, delimiter, skip_tail, skip_start, trim_time, skip_tail_raw, skip_start_raw, trim_length, lowpass, psd_welch, fourier_transform_doubleside):
+def analyse_signal(    filename, folder, method, tosecond, lineterminator, delimiter, skip_tail, skip_start, trim_time, lowpass, psd_welch, fourier_transform_doubleside):
     print("analysing : ", filename)
 
     
@@ -276,7 +222,15 @@ def analyse_signal(    filename, folder, method, tosecond, lineterminator, delim
         columns = [[float(x) for x in row.split(delimiter)] for row in rows]
         # Convert the columns to a numpy array
         data    = np.array(columns)[:]
-
+    
+    #calculating row sample rate using global constant "tosecond" and measurement_timeinterval from data file auomatically
+    measurement_timeinterval=(data[1,0]-data[0,0])*tosecond
+    row_sample_rate = 1/measurement_timeinterval
+    
+    
+    skip_tail_raw   = int( 1000*row_sample_rate)    # Remove few data points from the end
+    skip_start_raw  = int( 600*row_sample_rate)     # Remove few data points from the beginning
+    trim_length     = int( 1000*row_sample_rate)     # Trimms the date. Keeps from endng till the trim_length towards the start eg:800seconds
     
     #### Skipping few minues
     if True: 
@@ -408,5 +362,5 @@ if __name__=="__main__":
 
     #load and analyse all the files
     for filename in filelist:
-        analyse_signal(filename, folder, method, tosecond, lineterminator, delimiter, skip_tail, skip_start, trim_time, skip_tail_raw, skip_start_raw, trim_length, lowpass, psd_welch, fourier_transform_doubleside)
+        analyse_signal(filename, folder, method, tosecond, lineterminator, delimiter, skip_tail, skip_start, trim_time, lowpass, psd_welch, fourier_transform_doubleside)
 
