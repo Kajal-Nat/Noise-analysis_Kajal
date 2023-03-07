@@ -48,16 +48,10 @@ if kajal_pc : folder = "D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#47_9T_Noise\D5_2_Fe
 if lab_pc  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data_combined"
 fileprefix  = "K_5,3mS" #Also, change this depending on files to read
 method          =  "MSA_n2_norm_Kajal_2"#"MSA_n2_norm_lowpass"#"MSA_n2_norm___f_scaled___" #"psd_welch_mean"#___skip_start_600s
-#skip_few_minuts
-skip_tail       = False
-skip_start      = False
-trim_time       = False
-rollingavg      = True
-if "skip_tail" in method : skip_tail        = True
-if "skip_start" in method :skip_start       = True
-if "trim_time" in method :trim_time         = True
 
-    
+#We shoud do rolling average else the PSD is too noisy at higher frequencies
+rollingavg      = True
+ 
 filelist                = []
 delimiter   = ","
 lineterminator = "\n"
@@ -192,7 +186,7 @@ def lowpass(signal,fs,method):
 
 
 #### Data analysis function
-def analyse_signal(    filename, folder, method, tosecond, lineterminator, delimiter, skip_tail, skip_start, trim_time, lowpass, psd_welch, fourier_transform_doubleside):
+def analyse_signal(    filename, folder, method, tosecond, lineterminator, delimiter, lowpass, psd_welch, fourier_transform_doubleside):
     print("analysing : ", filename)
 
     
@@ -227,24 +221,39 @@ def analyse_signal(    filename, folder, method, tosecond, lineterminator, delim
     measurement_timeinterval=(data[1,0]-data[0,0])*tosecond
     row_sample_rate = 1/measurement_timeinterval
     
+    #Skipping data points as per skipping mechanism (starting points, end points) and number of seconds stated in method, if nothign stated then no skipping deployed
+    if "skip_tail" in method :
+        skip_tail        = True
+        skip_tail_raw = method[method.find("skip_tail_")+len("skip_tail_"):]
+        skip_tail_raw = float(skip_tail_raw[:skip_tail_raw.find("s")])
+        print(f"will skip tail end of {skip_tail_raw}s")
+        skip_tail_raw = int(skip_tail_raw*row_sample_rate)
+    if "skip_start" in method :
+        skip_start       = True
+        skip_start_raw = method[method.find("skip_start_")+len("skip_start_"):]
+        skip_start_raw = float(skip_start_raw[:skip_start_raw.find("s")])
+        print(f"will skip start of {skip_start_raw}s")
+        skip_start_raw = int(skip_start_raw*row_sample_rate)
+    if "trim_time" in method :
+        trim_time         = True
+        trim_length = method[method.find("trim_time_")+len("trim_time_"):]
+        trim_length = float(trim_length[:trim_length.find("s")])
+        print(f"will trim_time of {trim_length}s")
+        trim_length = int(trim_length*row_sample_rate)
     
-    skip_tail_raw   = int( 1000*row_sample_rate)    # Remove few data points from the end
-    skip_start_raw  = int( 600*row_sample_rate)     # Remove few data points from the beginning
-    trim_length     = int( 1000*row_sample_rate)     # Trimms the date. Keeps from endng till the trim_length towards the start eg:800seconds
-    
-    #### Skipping few minues
+    #### Skipping few minutes
     if True: 
         data[:,0]       = (data[:,0])*tosecond
         if skip_tail: #Skipping end
-            print(f"skipping tail of data {data[0,0]:.0f} to {data[0,0]:.0f}")
+            print(f"skipping tail of data {data[0,0]:.0f} to {data[-1   ,0]:.0f}")
             data        = data[:-skip_tail_raw,:]
             print("remaining from {data[0,0]:.0f}s to {data[-1,0]:.0f}s")
         if skip_start: #Skip begining
-            print(f"skipping start of data {data[0,0]:.0f}s to {data[0,0]:.0f}s")
+            print(f"skipping start of data {data[0,0]:.0f}s to {data[-1,0]:.0f}s")
             data        = data[skip_start_raw:,:]
             print(f"remaining from {data[0,0]:.0f}s to {data[-1,0]:.0f}seconds")
         if trim_time:
-            print(f"trimming        :  data {data[0,0]:.0f}s to {data[0,0]:.0f}s")
+            print(f"trimming        :  data {data[0,0]:.0f}s to {data[-1,0]:.0f}s")
             data        = data[-trim_length:,:]
             print(f"remaining from {data[0,0]:.0f}s to {data[-1,0]:.0f}seconds")
         
@@ -362,5 +371,5 @@ if __name__=="__main__":
 
     #load and analyse all the files
     for filename in filelist:
-        analyse_signal(filename, folder, method, tosecond, lineterminator, delimiter, skip_tail, skip_start, trim_time, lowpass, psd_welch, fourier_transform_doubleside)
+        analyse_signal(filename, folder, method, tosecond, lineterminator, delimiter, lowpass, psd_welch, fourier_transform_doubleside)
 
