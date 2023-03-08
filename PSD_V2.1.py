@@ -44,7 +44,7 @@ tosecond        = 1/104.6/573440 #It is constant no matter what, never change it
 
 #this needs to be changed depending on what files to analyse
 if mac: folder      = "/Users/admin-nisem543/Seafile/MAX PLANK/Data/PPMS/FGT3_S25_#047/D1/Combined"
-if kajal_pc : folder = "D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#47_9T_Noise\D5_2_Feb_2023_night"
+if kajal_pc : folder = "D:\Data\Kajal\Seafile\PPMS\FGT3_S25_#47_9T_Noise\D5_4th_Feb-2023_5am"
 if lab_pc  : folder      = r"C:\Users\admin-nisel120\ownCloud5\MAX PLANK\Data\Data\PPMS14T\Ajesh_2022\FGT3_S25_#047\Data_combined"
 fileprefix  = "K_5,3mS" #Also, change this depending on files to read
 method          =  "MSA_n2_norm_Kajal_2"#"MSA_n2_norm_lowpass"#"MSA_n2_norm___f_scaled___" #"psd_welch_mean"#___skip_start_600s
@@ -221,6 +221,9 @@ def analyse_signal(    filename, folder, method, tosecond, lineterminator, delim
     measurement_timeinterval=(data[1,0]-data[0,0])*tosecond
     row_sample_rate = 1/measurement_timeinterval
     
+    skip_start=False
+    skip_tail=False
+    trim_time=False
     #Skipping data points as per skipping mechanism (starting points, end points) and number of seconds stated in method, if nothign stated then no skipping deployed
     if "skip_tail" in method :
         skip_tail        = True
